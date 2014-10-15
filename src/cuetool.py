@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os
-from stdlib import read_file,write_file
+from stdlib import read_file,write_file,read_shell,write_shell,\
+     exec_shell
 
 FORMAT=['wav','aiff','shn','flac','ape','ofr','wv',
         'tta','als','tak','bonk','mkw']
@@ -15,19 +16,6 @@ CUETAG_CMD='cuetag "%s" "%s"/*.%s'
 SHNSPLIT_CMD='shnsplit -o %s -t %%n-%%t -f "%s" -d "%s" "%s"'
 
 MKDIR_CMD= 'mkdir "%s"'
-
-def read_shell(cmd):
-    return os.popen(cmd).read().splitlines()
-
-def write_shell(cmd,lines):
-    with os.popen(cmd,'w') as fn:
-        if isinstance(lines,str):
-            fn.write(lines)
-        elif type(lines)in(tuple,list):
-            [fn.write('%s\n'%(x))for x in lines]
-
-def exec_shell(cmd):
-    os.system(cmd)
 
 class CueTool:
     def __init__(self):
